@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.administrator.gallerydemo.customgallery.JokesGalleryActivity;
 import com.example.administrator.gallerydemo.xsimage.XsGalleryActivity;
 import com.example.administrator.gallerydemo.xsimage.XsGalleryListChildActivity;
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity   {
     private static final String TAG = "MainActivity";
     public static ArrayList<String> list=null;
     private TextView tv_xs_gallery;
+    private TextView tv_jokes_gallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity   {
 
     private void initViews() {
         tv_xs_gallery=(TextView) findViewById(R.id.tv_xs_gallery);
+        tv_jokes_gallery = (TextView) findViewById(R.id.tv_jokes_gallery);
     }
 
     private void initEvents() {
@@ -44,6 +47,14 @@ public class MainActivity extends AppCompatActivity   {
 //                    String path = filelist.get(i);
 //                    Log.e(TAG,""+path);
 //                }
+            }
+        });
+        tv_jokes_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, JokesGalleryActivity.class);
+                startActivity(intent);
+
             }
         });
 

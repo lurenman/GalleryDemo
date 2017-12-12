@@ -15,71 +15,71 @@ import java.util.TreeSet;
 
 public class Util {
 
-	Context context;
+    Context context;
 
-	public Util(Context context) {
-		this.context = context;
-	}
+    public Util(Context context) {
+        this.context = context;
+    }
 
-	/**
-	 * 获取全部图片地址
-	 *
-	 * @return
-	 */
-	@SuppressLint("InlinedApi")
-	public ArrayList<String> listAlldir() {
-		Intent intent = new Intent(Intent.ACTION_PICK,
-				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		Uri uri = intent.getData();
-		ArrayList<String> list = new ArrayList<String>();
-		String[] proj = { MediaStore.Images.Media.DATA };
-		Cursor cursor = context.getContentResolver().query(uri, proj, null,
-				null, MediaStore.Images.Media.DATE_MODIFIED + " desc");// managedQuery(uri,
-		// proj,
-		// null,
-		// null,
-		// null);
-		int imgcount = cursor.getCount();
-		while (cursor.moveToNext()) {
-			String path = cursor.getString(0);
-			list.add(new File(path).getAbsolutePath());
-		}
-		return list;
-	}
+    /**
+     * 获取全部图片地址
+     *
+     * @return
+     */
+    @SuppressLint("InlinedApi")
+    public ArrayList<String> listAlldir() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Uri uri = intent.getData();
+        ArrayList<String> list = new ArrayList<String>();
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri, proj, null,
+                null, MediaStore.Images.Media.DATE_MODIFIED + " desc");// managedQuery(uri,
+        // proj,
+        // null,
+        // null,
+        // null);
+        int imgcount = cursor.getCount();
+        while (cursor.moveToNext()) {
+            String path = cursor.getString(0);
+            list.add(new File(path).getAbsolutePath());
+        }
+        return list;
+    }
 
-	public List<FileTraversal> LocalImgFileList() {
-		List<FileTraversal> data = new ArrayList<FileTraversal>();
-		String filename = "";
-		List<String> allimglist = listAlldir();
-		List<String> retulist = new ArrayList<String>();
-		if (allimglist != null) {
-			Set set = new TreeSet();
-			String[] str;
-			for (int i = 0; i < allimglist.size(); i++) {
-				retulist.add(getfileinfo(allimglist.get(i)));
-			}
-			for (int i = 0; i < retulist.size(); i++) {
-				set.add(retulist.get(i));
-			}
-			str = (String[]) set.toArray(new String[0]);
-			for (int i = 0; i < str.length; i++) {
-				filename = str[i];
-				FileTraversal ftl = new FileTraversal();
-				ftl.filename = filename;
-				data.add(ftl);
-			}
+    public List<FileTraversal> LocalImgFileList() {
+        List<FileTraversal> data = new ArrayList<FileTraversal>();
+        String filename = "";
+        List<String> allimglist = listAlldir();
+        List<String> retulist = new ArrayList<String>();
+        if (allimglist != null) {
+            Set set = new TreeSet();
+            String[] str;
+            for (int i = 0; i < allimglist.size(); i++) {
+                retulist.add(getfileinfo(allimglist.get(i)));
+            }
+            for (int i = 0; i < retulist.size(); i++) {
+                set.add(retulist.get(i));
+            }
+            str = (String[]) set.toArray(new String[0]);
+            for (int i = 0; i < str.length; i++) {
+                filename = str[i];
+                FileTraversal ftl = new FileTraversal();
+                ftl.filename = filename;
+                data.add(ftl);
+            }
 
-			for (int i = 0; i < data.size(); i++) {
-				for (int j = 0; j < allimglist.size(); j++) {
-					if (data.get(i).filename.equals(getfileinfo(allimglist
-							.get(j)))) {
-						data.get(i).filecontent.add(allimglist.get(j));
-					}
-				}
-			}
-		}
-		return data;
-	}
+            for (int i = 0; i < data.size(); i++) {
+                for (int j = 0; j < allimglist.size(); j++) {
+                    if (data.get(i).filename.equals(getfileinfo(allimglist
+                            .get(j)))) {
+                        data.get(i).filecontent.add(allimglist.get(j));
+                    }
+                }
+            }
+        }
+        return data;
+    }
 
 //	// 显示原生图片尺寸大小
 //	public Bitmap getPathBitmap(Uri imageFilePath, int dw, int dh)
@@ -119,15 +119,15 @@ public class Util {
 //		return pic;
 //	}
 
-	public String getfileinfo(String data) {
-		String filename[] = data.split("/");
-		if (filename != null) {
-			return filename[filename.length - 2];
-		}
-		return null;
-	}
+    public String getfileinfo(String data) {
+        String filename[] = data.split("/");
+        if (filename != null) {
+            return filename[filename.length - 2];
+        }
+        return null;
+    }
 
-//	public void imgExcute(ImageView imageView, ImgCallBack icb,
+    //	public void imgExcute(ImageView imageView, ImgCallBack icb,
 //						  String... params) {
 //		LoadBitAsynk loadBitAsynk = new LoadBitAsynk(imageView, icb);
 //		loadBitAsynk.execute(params);
@@ -170,5 +170,38 @@ public class Util {
 //		}
 //
 //	}
+    //内涵段子准备的
+    public List<FileTraversal> LocalImgFileList(List<String> allimglist) {
+        List<FileTraversal> data = new ArrayList<FileTraversal>();
+        String filename = "";
+        allimglist = listAlldir();
+        List<String> retulist = new ArrayList<String>();
+        if (allimglist != null) {
+            Set set = new TreeSet();
+            String[] str;
+            for (int i = 0; i < allimglist.size(); i++) {
+                retulist.add(getfileinfo(allimglist.get(i)));
+            }
+            for (int i = 0; i < retulist.size(); i++) {
+                set.add(retulist.get(i));
+            }
+            str = (String[]) set.toArray(new String[0]);
+            for (int i = 0; i < str.length; i++) {
+                filename = str[i];
+                FileTraversal ftl = new FileTraversal();
+                ftl.filename = filename;
+                data.add(ftl);
+            }
 
+            for (int i = 0; i < data.size(); i++) {
+                for (int j = 0; j < allimglist.size(); j++) {
+                    if (data.get(i).filename.equals(getfileinfo(allimglist
+                            .get(j)))) {
+                        data.get(i).filecontent.add(allimglist.get(j));
+                    }
+                }
+            }
+        }
+        return data;
+    }
 }

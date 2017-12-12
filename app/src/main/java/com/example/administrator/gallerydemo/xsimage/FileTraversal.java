@@ -11,7 +11,7 @@ import java.util.List;
 @SuppressLint("ParcelCreator")
 public class FileTraversal implements Parcelable {
 	public String filename;//所属图片的文件名称
-	public List<String> filecontent=new ArrayList<String>();
+	public List<String> filecontent=new ArrayList<String>();//path 集合
 
 	@Override
 	public int describeContents() {

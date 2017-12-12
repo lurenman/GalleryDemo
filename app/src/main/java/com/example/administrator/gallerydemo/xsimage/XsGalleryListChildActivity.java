@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -14,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,6 +31,7 @@ import java.util.HashMap;
  */
 
 public class XsGalleryListChildActivity extends Activity {
+    private static final String TAG = "XsGalleryListChildActiv";
     private ImageView iv_back;
     private TextView tv_title;//标题
     private GridView gridView;
@@ -97,6 +98,7 @@ public class XsGalleryListChildActivity extends Activity {
 //                    XsGalleryActivity.instance.finish();
 //                    XsGalleryListChildActivity.this.finish();
                     MainActivity.list=filelist;
+                    Log.e(TAG,"-------"+filelist.get(0).toString());
                 } else {
                     CustomToast.showToast(getApplicationContext(), "请选择图片", 1500);
                 }

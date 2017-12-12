@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".xsimage.XsGalleryActivity" />
         <activity android:name=".xsimage.XsGalleryListChildActivity" />
+        <activity android:name=".customgallery.JokesGalleryActivity" />
+        <activity android:name=".customgallery.JokesDetialGalleryActivity" />
     </application>
 
 </manifest>

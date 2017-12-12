@@ -52,7 +52,8 @@ public class ImgsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup arg2) {
         Holder holder;
-        if (position != index && position > index) {
+        //
+        if (convertView==null&&position != index && position > index) {
             holder = new Holder();
             index = position;
             convertView = LayoutInflater.from(context).inflate(R.layout.imgsitem, null);

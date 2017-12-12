@@ -1,4 +1,4 @@
-package com.example.administrator.gallerydemo.xsimage;
+package com.example.administrator.gallerydemo.customgallery;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,26 +12,27 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.administrator.gallerydemo.R;
+import com.example.administrator.gallerydemo.xsimage.Util;
 
 import java.util.HashMap;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class ImgFileListAdapter extends BaseAdapter {
+/**
+ * @author: baiyang.
+ * Created on 2017/12/11.
+ */
+
+public class JokesSeletedAdapter extends BaseAdapter {
     Context context;
     String filecount = "filecount";
     String filename = "filename";
     String imgpath = "imgpath";
     List<HashMap<String, String>> listdata;
-    Util util;
-    Bitmap[] bitmaps;
-    public ImgFileListAdapter(Context context, List<HashMap<String, String>> listdata) {
+    public JokesSeletedAdapter(Context context, List<HashMap<String, String>> listdata) {
         this.context = context;
         this.listdata = listdata;
-        bitmaps = new Bitmap[listdata.size()];
-        util = new Util(context);
-        //holderlist = new ArrayList<View>();
     }
 
     @Override
@@ -50,21 +51,22 @@ public class ImgFileListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup arg2) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        if (convertView==null) {
+        if (convertView == null) {
             holder = new Holder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.imgfileadapter, null);
-            holder.photo_imgview = (ImageView) convertView.findViewById(R.id.filephoto_imgview);
-            holder.filecount_textview = (TextView) convertView.findViewById(R.id.filecount_textview);
-            holder.filename_textView = (TextView) convertView.findViewById(R.id.filename_textview);
+            convertView = LayoutInflater.from(context).inflate(R.layout.jokes_seleted_lv_item, null);
+            holder.iv_imgview = (ImageView) convertView.findViewById(R.id.iv_imgview);
+            holder.tv_fileneme = (TextView) convertView.findViewById(R.id.tv_fileneme);
+            holder.tv_filenums = (TextView) convertView.findViewById(R.id.tv_filenums);
             convertView.setTag(holder);
+
         } else {
             holder = (Holder) convertView.getTag();
         }
 
-        holder.filename_textView.setText(listdata.get(position).get(filename));
-        holder.filecount_textview.setText(listdata.get(position).get(filecount));
+        holder.tv_fileneme.setText(listdata.get(position).get(filename));
+        holder.tv_filenums.setText("("+listdata.get(position).get(filecount)+")");
 
         Glide.with(context).load(listdata.get(position).get(imgpath)).bitmapTransform(new
                 RoundedCornersTransformation(context, 20, 0, RoundedCornersTransformation
@@ -73,14 +75,13 @@ public class ImgFileListAdapter extends BaseAdapter {
                 .error(R.mipmap.icon_errorimg)//设置错误图
                 .crossFade()//动画效果
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//不缓存图片
-                .into(holder.photo_imgview);
+                .into(holder.iv_imgview);
         return convertView;
     }
 
-    class Holder {
-        ImageView photo_imgview;
-        TextView filecount_textview;
-        TextView filename_textView;
+    private class Holder {
+        ImageView iv_imgview;
+        TextView tv_fileneme;//文件名称
+        TextView tv_filenums;//文件数量
     }
-
 }
