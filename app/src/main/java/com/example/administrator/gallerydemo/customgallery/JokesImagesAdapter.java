@@ -64,12 +64,15 @@ public class JokesImagesAdapter extends BaseAdapter {
        // holder.iv_img.setTag(position,mDatas.get(position));
         holder.v_path.setTag(mDatas.get(position));
         Glide.with(mContext).load(mDatas.get(position))
-                .bitmapTransform(new RoundedCornersTransformation(mContext, 20, 0, RoundedCornersTransformation
-                        .CornerType.ALL))
+                .asBitmap()
+//                .bitmapTransform(new RoundedCornersTransformation(mContext, 20, 0, RoundedCornersTransformation
+//                        .CornerType.ALL))
+
                 .placeholder(R.mipmap.imgbg)//占位图
                 .error(R.mipmap.icon_errorimg)//设置错误图
-                .crossFade()//动画效果
+               // .crossFade()//动画效果
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//不缓存图片
+
                 .into(holder.iv_img);
 
 

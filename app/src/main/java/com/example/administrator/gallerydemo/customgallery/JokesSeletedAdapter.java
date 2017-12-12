@@ -68,12 +68,14 @@ public class JokesSeletedAdapter extends BaseAdapter {
         holder.tv_fileneme.setText(listdata.get(position).get(filename));
         holder.tv_filenums.setText("("+listdata.get(position).get(filecount)+")");
 
-        Glide.with(context).load(listdata.get(position).get(imgpath)).bitmapTransform(new
+        Glide.with(context).load(listdata.get(position).get(imgpath))
+             /*   .bitmapTransform(new
                 RoundedCornersTransformation(context, 20, 0, RoundedCornersTransformation
-                .CornerType.ALL))
+                .CornerType.ALL))*/
+                .asBitmap()
                 .placeholder(R.mipmap.imgbg)//占位图
                 .error(R.mipmap.icon_errorimg)//设置错误图
-                .crossFade()//动画效果
+                //.crossFade()//动画效果
                 .diskCacheStrategy(DiskCacheStrategy.NONE)//不缓存图片
                 .into(holder.iv_imgview);
         return convertView;

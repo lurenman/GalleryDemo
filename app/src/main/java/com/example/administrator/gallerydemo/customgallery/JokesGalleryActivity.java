@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.administrator.gallerydemo.R;
 import com.example.administrator.gallerydemo.xsimage.FileTraversal;
 import com.example.administrator.gallerydemo.xsimage.Util;
@@ -138,13 +141,39 @@ public class JokesGalleryActivity extends BaseActivity implements EasyPermission
                 }
             }
         });
+        gv_gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    case SCROLL_STATE_FLING:
+                        Log.i("ScrollListener", "onScrollStateChanged: " + SCROLL_STATE_FLING);
+                        Glide.with(mContext).pauseRequests();//停止请求
+                        break;
+                    case SCROLL_STATE_IDLE:
+                        Log.i("ScrollListener", "onScrollStateChanged: " + SCROLL_STATE_IDLE);
+                        Glide.with(mContext).resumeRequests();//恢复请求
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL:
+                        Log.i("ScrollListener", "SCROLL_STATE_TOUCH_SCROLL: " + SCROLL_STATE_TOUCH_SCROLL);
+                        Glide.with(mContext).pauseRequests();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
         gv_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 View v_path = (View) view.findViewById(R.id.v_path);
                 String path = (String) v_path.getTag();
                 Bundle bundle = new Bundle();
-                bundle.putString("path",path);
+                bundle.putString("path", path);
                 Intent intent = new Intent(mContext, JokesDetialGalleryActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
